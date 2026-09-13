@@ -207,7 +207,7 @@ df["month"] = pd.to_datetime(df["month"])
 
 ```python
 st.write(f"Rows loaded: {len(df):,} | Columns: {len(df.columns)}")
-st.dataframe(df.head(20), width="stretch")
+st.dataframe(df.head(20), use_container_width=True)
 ```
 
 What you should observe:
@@ -349,7 +349,7 @@ If you place it earlier, `filtered_df` is not defined yet and the app will error
 ```python
 st.header("Filtered Results")
 st.write(f"Matching rows: {len(filtered_df):,} | Columns: {len(filtered_df.columns)}")
-st.dataframe(filtered_df.head(20), width="stretch")
+st.dataframe(filtered_df.head(20), use_container_width=True)
 ```
 
 ### **4.4 KPI row**
@@ -483,7 +483,7 @@ Unlike the main table in Section 4.3 (always visible for quick feedback), this o
 
 ```python
 with st.expander("View Filtered Transactions"):
-    st.dataframe(filtered_df, width="stretch", height=350)
+    st.dataframe(filtered_df, use_container_width=True, height=350)
     csv = filtered_df.to_csv(index=False).encode("utf-8")
     st.download_button(
         "Download filtered CSV",
