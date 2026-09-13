@@ -7,10 +7,14 @@ print(f"🟢 Rerun at: {datetime.now()}")
 
 DATA_PATH = "./data/resale_data.csv"
 
-# df = pd.read_csv(DATA_PATH)
+df = pd.read_csv(DATA_PATH)
 # Convert the 'month' column to datetime format because it is read as object/string by default
 # If the data had been cleaned earlier, this step might not be necessary
-# df["month"] = pd.to_datetime(df["month"])
+df["month"] = pd.to_datetime(df["month"])
+
+# Sets the page configuration
+# You can set the page title and layout here
+st.set_page_config(page_title="HDB Resale Dashboard", layout="wide")
 
 @st.cache_data
 def load_data(path):
@@ -19,10 +23,6 @@ def load_data(path):
     return df
 
 df = load_data(DATA_PATH)
-
-# Sets the page configuration
-# You can set the page title and layout here
-st.set_page_config(page_title="HDB Resale Dashboard", layout="wide")
 
 st.title("🏠 Singapore HDB Resale Dashboard")
 # st.caption("Code-along: building a usable dashboard from real resale transactions.")
@@ -99,7 +99,7 @@ if len(date_range) == 2:
 st.header("Filtered Results")
 st.write(
     f"Matching rows: {len(filtered_df):,} | Columns: {len(filtered_df.columns)}")
-st.dataframe(filtered_df, width="stretch")
+st.dataframe(filtered_df, use_container_width=True)
 
 
 # KPI Rows
@@ -150,12 +150,12 @@ trend = (
 fig_trend = px.line(trend, x="month", y="resale_price", markers=True)
 st.plotly_chart(fig_trend, width="stretch")
 
-# with st.expander("View Filtered Transactions"):
-#     st.dataframe(filtered_df, width="stretch", height=350)
-#     csv = filtered_df.to_csv(index=False).encode("utf-8")
-#     st.download_button(
-#         "Download filtered CSV",
-#         data=csv,
-#         file_name="filtered_resale_data.csv",
-#         mime="text/csv",
-#     )
+with st.expander("View Filtered Transactions"):
+    st.dataframe(filtered_df, use_container_width=True, height=350)
+    csv = filtered_df.to_csv(index=False).encode("utf-8")
+    st.download_button(
+        "Download filtered CSV",
+        data=csv,
+        file_name="filtered_resale_data.csv",
+        mime="text/csv",
+    )
