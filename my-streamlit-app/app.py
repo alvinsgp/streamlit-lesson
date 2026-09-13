@@ -5,12 +5,12 @@ from datetime import datetime
 
 print(f"🟢 Rerun at: {datetime.now()}")
 
-DATA_PATH = "./data/resale_data.csv"
+DATA_PATH = "data/resale_data.csv"
 
-df = pd.read_csv(DATA_PATH)
+# df = pd.read_csv(DATA_PATH)
 # Convert the 'month' column to datetime format because it is read as object/string by default
 # If the data had been cleaned earlier, this step might not be necessary
-df["month"] = pd.to_datetime(df["month"])
+# df["month"] = pd.to_datetime(df["month"])
 
 # Sets the page configuration
 # You can set the page title and layout here
