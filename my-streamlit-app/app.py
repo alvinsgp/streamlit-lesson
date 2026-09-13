@@ -2,19 +2,12 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 from datetime import datetime
+from pathlib import Path
 
 print(f"🟢 Rerun at: {datetime.now()}")
 
-DATA_PATH = "data/resale_data.csv"
-
-# df = pd.read_csv(DATA_PATH)
-# Convert the 'month' column to datetime format because it is read as object/string by default
-# If the data had been cleaned earlier, this step might not be necessary
-# df["month"] = pd.to_datetime(df["month"])
-
-# Sets the page configuration
-# You can set the page title and layout here
-st.set_page_config(page_title="HDB Resale Dashboard", layout="wide")
+BASE_DIR = Path(__file__).resolve().parent
+DATA_PATH = BASE_DIR / "data" / "resale_data.csv"
 
 @st.cache_data
 def load_data(path):
